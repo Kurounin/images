@@ -13,9 +13,9 @@ RUN         dpkg --add-architecture i386 \
             && apt-get update \
             && apt-get upgrade -y \
             && apt-get install -y tar curl gcc g++ lib32gcc1 libgcc1 libcurl4-gnutls-dev:i386 libcurl4:i386 lib32tinfo5 libtinfo5:i386 lib32z1 libstdc++6 lib32stdc++6 libncurses5:i386 libcurl3-gnutls:i386 libreadline5 libncursesw5 lib32ncursesw5 iproute2 gdb libsdl1.2debian libfontconfig telnet net-tools netcat libtcmalloc-minimal4:i386 faketime:i386 locales libmariadbclient18 \
-			&& curl http://launchpadlibrarian.net/75954717/libmysqlclient16_5.1.58-1ubuntu1_amd64.deb -o libmysqlclient16.deb \
-			&& dpkg -i libmysqlclient16.deb \
-			&& rm -f libmysqlclient16.deb \
+            && curl http://launchpadlibrarian.net/94808408/libmysqlclient16_5.1.58-1ubuntu5_amd64.deb -o libmysqlclient16.deb \
+            && dpkg -i libmysqlclient16.deb \
+            && rm -f libmysqlclient16.deb \
             && update-locale lang=en_US.UTF-8 \
             && dpkg-reconfigure --frontend noninteractive locales \
             && useradd -m -d /home/container container
