@@ -13,6 +13,7 @@ RUN   dpkg --add-architecture i386 \
  &&   apt upgrade -y \
  &&   apt install -y libtbb2:i386 libtinfo5:i386 libcurl4-gnutls-dev:i386 libcurl4:i386 libncurses5:i386 libcurl3-gnutls:i386 libtcmalloc-minimal4:i386 faketime:i386 libtbb2:i386 \
       lib32stdc++6 lib32z1 libtbb2 libtinfo5 libreadline5 libncursesw5 libfontconfig1 libnss-wrapper libprotobuf-dev libidn11-dev gettext-base \
+	  tzdata \
  && curl http://launchpadlibrarian.net/94808408/libmysqlclient16_5.1.58-1ubuntu5_amd64.deb -o libmysqlclient16.deb \
  && dpkg -i libmysqlclient16.deb \
  && rm -f libmysqlclient16.deb
