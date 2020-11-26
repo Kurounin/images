@@ -3,26 +3,28 @@
 # Environment: Source Engine
 # Minimum Panel Version: 0.6.0
 # ----------------------------------
-FROM        ubuntu:18.04
+FROM  quay.io/parkervcp/pterodactyl-images:base_ubuntu
 
-LABEL       author="Pterodactyl Software" maintainer="support@pterodactyl.io"
+LABEL author="Michael Parker" maintainer="parker@pterodactyl.io"
 
-ENV         DEBIAN_FRONTEND noninteractive
-# Install Dependencies
-RUN         dpkg --add-architecture i386 \
-            && apt-get update \
-            && apt-get upgrade -y \
-            && apt-get install -y tar curl gcc g++ lib32gcc1 libgcc1 libcurl4-gnutls-dev:i386 libcurl4:i386 lib32tinfo5 libtinfo5:i386 lib32z1 libstdc++6 lib32stdc++6 libncurses5:i386 libcurl3-gnutls:i386 libreadline5 libncursesw5 lib32ncursesw5 iproute2 gdb libsdl1.2debian libfontconfig telnet net-tools netcat libtcmalloc-minimal4:i386 faketime:i386 locales libmariadbclient18 \
-            && curl http://launchpadlibrarian.net/94808408/libmysqlclient16_5.1.58-1ubuntu5_amd64.deb -o libmysqlclient16.deb \
-            && dpkg -i libmysqlclient16.deb \
-            && rm -f libmysqlclient16.deb \
-            && update-locale lang=en_US.UTF-8 \
-            && dpkg-reconfigure --frontend noninteractive locales \
-            && useradd -m -d /home/container container
+## install reqs
+RUN   dpkg --add-architecture i386 \
+ &&   apt update \
+ &&   apt upgrade -y \
+ &&   apt install -y libtbb2:i386 libtinfo5:i386 libcurl4-gnutls-dev:i386 libcurl4:i386 libncurses5:i386 libcurl3-gnutls:i386 libtcmalloc-minimal4:i386 faketime:i386 libtbb2:i386 \
+      lib32stdc++6 lib32z1 libtbb2 libtinfo5 libreadline5 libncursesw5 libfontconfig1 libnss-wrapper libprotobuf-dev libidn11-dev gettext-base \
+ && curl http://launchpadlibrarian.net/94808408/libmysqlclient16_5.1.58-1ubuntu5_amd64.deb -o libmysqlclient16.deb \
+ && dpkg -i libmysqlclient16.deb \
+ && rm -f libmysqlclient16.deb
+
+## install rcon
+RUN   cd /tmp/ \
+ &&   curl -sSL https://github.com/gorcon/rcon-cli/releases/download/v0.6.0/rcon-0.6.0-amd64_linux.tar.gz > rcon.tar.gz \
+ &&   tar xvf rcon.tar.gz \
+ &&   mv rcon-0.6.0-amd64_linux/rcon /usr/local/bin/
 
 USER        container
 ENV         HOME /home/container
 WORKDIR     /home/container
 
-COPY        ./entrypoint.sh /entrypoint.sh
-CMD         ["/bin/bash", "/entrypoint.sh"]
+COPY  ./entrypoint.sh /entrypoint.sh
