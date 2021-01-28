@@ -1,4 +1,4 @@
-FROM        ubuntu:16.04
+FROM        debian:10
 
 LABEL       author="mrkrabs" maintainer="bl4ckspr4y@protonmail.com"
 
