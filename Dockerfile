@@ -1,4 +1,4 @@
-FROM        debian:10
+FROM        debian:8
 
 LABEL       author="mrkrabs" maintainer="bl4ckspr4y@protonmail.com"
 
